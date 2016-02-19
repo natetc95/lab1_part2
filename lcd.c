@@ -411,7 +411,7 @@ void testString(){
     LCD_E = 1;
     delayUs(1);
     LCD_E = 0;
-    delayUs(50);
+    delayUs(1000);
     
     LCD_RS = 0;
     
@@ -437,7 +437,7 @@ void testString(){
     LCD_E = 1;
     delayUs(1);
     LCD_E = 0;
-    delayUs(50);
+    delayUs(1000);
     
     LCD_RS = 0;
     
@@ -456,14 +456,14 @@ void testString(){
     delayUs(50);
 
     LCD_D7 = 0;
-    LCD_D6 = 1;
-    LCD_D5 = 1;
-    LCD_D4 = 0;
+    LCD_D6 = 0;
+    LCD_D5 = 0;
+    LCD_D4 = 1;
 
     LCD_E = 1;
     delayUs(1);
     LCD_E = 0;
-    delayUs(50);
+    delayUs(1000);
     
     LCD_RS = 0;
     
@@ -474,14 +474,14 @@ void testString(){
     LCD_D7 = 0;
     LCD_D6 = 1;
     LCD_D5 = 1;
-    LCD_D4 = 1;
+    LCD_D4 = 0;
 
     LCD_E = 1;
     delayUs(1);
     LCD_E = 0;
     delayUs(50);
 
-    LCD_D7 = 0;
+    LCD_D7 = 1;
     LCD_D6 = 1;
     LCD_D5 = 1;
     LCD_D4 = 0;
@@ -489,7 +489,7 @@ void testString(){
     LCD_E = 1;
     delayUs(1);
     LCD_E = 0;
-    delayUs(50);
+    delayUs(1000);
     
     LCD_RS = 0;
 }
