@@ -13,6 +13,7 @@
 #include "timer.h"
 #include "config.h"
 #include "interrupt.h"
+#include "switch.h"
 
 
 // ******************************************************************************************* //
@@ -25,10 +26,22 @@ int main(void)
     
     initLCD();
     
-    LCDShift();
+    delayUs(1000000);
     
-    moveCursorLCD(1,2);
+//    testChar();
+//    testChar();
+    testString();
     
+    
+    
+    
+    //LCDShift();
+    
+    //moveCursorLCD(1,2);
+    
+   // enableInterrupts();
+    
+   // initSW1();          //Initialize the button
     
     while(1)
     {
@@ -37,3 +50,9 @@ int main(void)
     
     return 0;
 }
+
+//void __ISR(_CHANGE_NOTICE_VECTOR, IPL2SRS) _CNInterrupt( void ){
+//    IFS1bits.CNDIF = 0;     //Reset change notification flag
+//    
+//    clearLCD();
+//}

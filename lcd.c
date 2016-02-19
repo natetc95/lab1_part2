@@ -69,9 +69,7 @@ void writeLCD(unsigned char word, unsigned int commandType, unsigned int delayAf
  */
 void printCharLCD(char c) {
     //TODO:
-    //Testing to print character "I"
-    //  UB: 0100
-    //  LB: 1001
+    
     LCD_RS = 1;
     
     
@@ -234,7 +232,11 @@ void initLCD(void) {
     
     delayUs(100);
     
-    //Turn on the display
+    
+    //End of initializations
+    
+    
+        //Turn on the display
     
         LCD_RS = 0;
         LCD_RW = 0;
@@ -253,7 +255,7 @@ void initLCD(void) {
         LCD_D7 = 1;
         LCD_D6 = 1;
         LCD_D5 = 1;
-        LCD_D4 = 1;
+        LCD_D4 = 0;
 
         LCD_E = 1;
         delayUs(1);
@@ -262,7 +264,7 @@ void initLCD(void) {
 
         delayUs(100);
     
-    //Clear the display
+   //Clear the display
     
         LCD_RS = 0;
         LCD_RW = 0;
@@ -289,90 +291,14 @@ void initLCD(void) {
         delayUs(10);
 
         delayUs(2000);
-    
-//    //Write "$"
-//    
-//        LCD_RS = 1;
-//        LCD_RW = 0;
-//        LCD_D7 = 0;
-//        LCD_D6 = 0;
-//        LCD_D5 = 1;
-//        LCD_D4 = 0;
-//
-//        LCD_E = 1;
-//        delayUs(1);
-//        LCD_E = 0;
-//        delayUs(50);
-//
-//        //LCD_RS = 0;
-//        //LCD_RW = 0;
-//        LCD_D7 = 0;
-//        LCD_D6 = 0;
-//        LCD_D5 = 0;
-//        LCD_D4 = 1;
-//
-//        LCD_E = 1;
-//        delayUs(1);
-//        LCD_E = 0;
-//        delayUs(10);
-    
-    
+         
     
     // 4-bit mode initialization is complete. We can now configure the various LCD
     // options to control how the LCD will function.
 
     // TODO: Display On/Off Control
         // Turn Display (D) Off
-        
-        LCD_RS = 0;
-        LCD_RW = 0;
-        LCD_D7 = 0;
-        LCD_D6 = 0;
-        LCD_D5 = 0;
-        LCD_D4 = 0;
-
-        LCD_E = 1;
-        delayUs(1);
-        LCD_E = 0;
-        delayUs(50);
-
-        LCD_D7 = 1;
-        LCD_D6 = 0;
-        LCD_D5 = 0;
-        LCD_D4 = 0;
-
-        LCD_E = 1;
-        delayUs(1);
-        LCD_E = 0;
-        delayUs(10);
-
-        delayUs(100);
-        
     // TODO: Clear Display (The delay is not specified in the data sheet at this point. You really need to have the clear display delay here.
-   
-        LCD_RS = 0;
-        LCD_RW = 0;
-        LCD_D7 = 0;
-        LCD_D6 = 0;
-        LCD_D5 = 0;
-        LCD_D4 = 0;
-
-        LCD_E = 1;
-        delayUs(1);
-        LCD_E = 0;
-        delayUs(2000);
-        
-        LCD_D7 = 0;
-        LCD_D6 = 0;
-        LCD_D5 = 0;
-        LCD_D4 = 1;
-
-        LCD_E = 1;
-        delayUs(1);
-        LCD_E = 0;
-        delayUs(2000);    
-    
-        
     // TODO: Entry Mode Set
         // Set Increment Display, No Shift (i.e. cursor move)
     // TODO: Display On/Off Control
@@ -392,6 +318,180 @@ void printStringLCD(const char* s) {
  * Clear the display.
  */
 void clearLCD(){
+//    
+//        //Clear the display
+//    
+//        LCD_RS = 0;
+//        LCD_RW = 0;
+//        LCD_D7 = 0;
+//        LCD_D6 = 0;
+//        LCD_D5 = 0;
+//        LCD_D4 = 0;
+//
+//        LCD_E = 1;
+//        delayUs(1);
+//        LCD_E = 0;
+//        delayUs(2000);
+//
+//       
+//        LCD_D7 = 0;
+//        LCD_D6 = 0;
+//        LCD_D5 = 0;
+//        LCD_D4 = 1;
+//
+//        LCD_E = 1;
+//        delayUs(1);
+//        LCD_E = 0;
+//        delayUs(10);
+//
+//        delayUs(2000);
+    
+}
+
+void testChar(){
+    
+    //Testing to print character "I"
+    //  UB: 0100
+    //  LB: 1001
+    
+    LCD_RS = 1;
+    LCD_RW = 0;
+    
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 0;
+    LCD_D4 = 0;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+
+    LCD_D7 = 1;
+    LCD_D6 = 0;
+    LCD_D5 = 0;
+    LCD_D4 = 1;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+    
+    LCD_RS = 0;
+
+}
+
+void testString(){
+    
+    //Testing to print String "Ivan"
+    //"I" UB: 0100 | LB: 1001
+    //"v" UB: 0111 | LB: 0110
+    //"a" UB: 0110 | LB: 0001
+    //"n" UB: 0110 | LB: 1110
+    
+    //Print character "I"
+    LCD_RS = 1;
+    LCD_RW = 0;
+    
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 0;
+    LCD_D4 = 0;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+
+    LCD_D7 = 1;
+    LCD_D6 = 0;
+    LCD_D5 = 0;
+    LCD_D4 = 1;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+    
+    LCD_RS = 0;
+    
+    //Print character "v"
+    LCD_RS = 1;
+    LCD_RW = 0;
+    
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 1;
+    LCD_D4 = 1;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 1;
+    LCD_D4 = 0;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+    
+    LCD_RS = 0;
+    
+    //Print character "a"
+    LCD_RS = 1;
+    LCD_RW = 0;
+    
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 1;
+    LCD_D4 = 0;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 1;
+    LCD_D4 = 0;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+    
+    LCD_RS = 0;
+    
+    //Print character "n"
+    LCD_RS = 1;
+    LCD_RW = 0;
+    
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 1;
+    LCD_D4 = 1;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+
+    LCD_D7 = 0;
+    LCD_D6 = 1;
+    LCD_D5 = 1;
+    LCD_D4 = 0;
+
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+    
+    LCD_RS = 0;
 }
 
 void writeLCD_4bit(unsigned char input) {
