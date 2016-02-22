@@ -27,3 +27,9 @@ void delayUs(unsigned int delay){
     while(IFS0bits.T2IF == 0);
     T2CONbits.ON = 0;
 }
+
+void delayMs(unsigned int delay){
+    for(delay = delay; delay > 0; delay--) {
+        delayUs(10000);
+    }
+}

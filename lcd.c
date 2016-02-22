@@ -255,7 +255,7 @@ void initLCD(void) {
         LCD_D7 = 1;
         LCD_D6 = 1;
         LCD_D5 = 1;
-        LCD_D4 = 0;
+        LCD_D4 = 1;
 
         LCD_E = 1;
         delayUs(1);
@@ -368,9 +368,9 @@ void testChar(){
     delayUs(50);
 
     LCD_D7 = 1;
-    LCD_D6 = 0;
-    LCD_D5 = 0;
-    LCD_D4 = 1;
+    LCD_D6 = 1;
+    LCD_D5 = 1;
+    LCD_D4 = 0;
 
     LCD_E = 1;
     delayUs(1);
@@ -521,6 +521,46 @@ void moveCursorLCD(unsigned char x, unsigned char y){
     delayUs(50);
     writeLCD_4bit(temp << 4);
     delayUs(50);
+}
+
+void writeCHAR(unsigned char c) {
+    
+    LCD_RS = 1;
+    LCD_RW = 0;
+    
+    char q = c;
+    c = c >> 4;
+    
+    short temp = 0;
+    LCD_D4 = (c&0x01);
+    LCD_D5 = (c&0x02) >> 1;
+    LCD_D6 = (c&0x04) >> 2;
+    LCD_D7 = (c&0x08) >> 3;
+    
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(50);
+    
+    c = q;
+       
+    LCD_D4 = (c&0x01);
+    LCD_D5 = (c&0x02) >> 1;
+    LCD_D6 = (c&0x04) >> 2;
+    LCD_D7 = (c&0x08) >> 3;
+    
+    LCD_E = 1;
+    delayUs(1);
+    LCD_E = 0;
+    delayUs(1000);
+    
+    LCD_RS = 0;
+}
+void writeSTRG(char* a) {
+    int i;
+    for(i = 0; i < 12; i++) {
+        writeCHAR(a[i]);
+    }
 }
 
 /*

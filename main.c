@@ -22,15 +22,19 @@ int main(void)
 {
     SYSTEMConfigPerformance(10000000);
     
+    TRISDbits.TRISD0 = 0;
+    LATDbits.LATD0 = 1;
+    
     initTimer2();
     
     initLCD();
     
     delayUs(1000000);
+    LATDbits.LATD0 = 0;
     
 //    testChar();
 //    testChar();
-    testString();
+    writeSTRG('Please Work.');
     
     
     
