@@ -24,13 +24,19 @@ int main(void)
     
     initTimer2();
     
+    TRISDbits.TRISD0 = 0;
+    LATDbits.LATD0 = 1;
+    
+    
     initLCD();
     
-    delayUs(1000000);
+    delayMs(1000);
+    LATDbits.LATD0 = 0;
     
 //    testChar();
 //    testChar();
     testString();
+    
     
     
     
@@ -45,7 +51,7 @@ int main(void)
     
     while(1)
     {
-        
+
     }
     
     return 0;
