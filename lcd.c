@@ -45,13 +45,27 @@
  * The command type is a simplification. From the data sheet, the RS is '1'
  * when you are simply writing a character. Otherwise, RS is '0'.
  */
-void writeFourBits(unsigned char word, unsigned int commandType, unsigned int delayAfter, unsigned int lower){
+
+typedef enum bit_enum {
+    true, false
+}bit;
+
+void writeFourBits(unsigned  char word, bit commandType, unsigned int delayAfter, unsigned int lower){
     //TODO:
     // set the commandType (RS value)
-    LATEbits.LATE0 = word&0x01;
-    LATEbits.LATE2 = word&0x02;
-    LATEbits.LATE4 = word&0x04;
-    LATEbits.LATE6 = word&0x08;
+    
+    LCD_RS = commandType;
+    
+    LCD_D4 = word&0x01;
+    LCD_D5 = word&0x02;
+    LCD_D6 = word&0x04;
+    LCD_D7 = word&0x08;
+    
+    LCD_E = 1;
+    delayUs(10);
+    LCD_E = 0;
+    
+    delayUs(delayAfter);
     
     //enable
     //delay
@@ -376,9 +390,6 @@ void testChar(){
     delayUs(1);
     LCD_E = 0;
     delayUs(50);
-    
-    LCD_RS = 0;
-
 }
 
 void testString(){
@@ -494,33 +505,55 @@ void testString(){
     LCD_RS = 0;
 }
 
-void writeLCD_4bit(unsigned char input) {
-    unsigned short temp = 0x0000;
-    temp |= (input >> 6);
-    temp |= ((input << 1) >> 6) << 3;
-    temp |= ((input << 2) >> 6) << 5;
-    temp |= ((input << 3) >> 6) << 7;
-    PORTE = temp;
+void writeCHAR(unsigned char c, short x) {
+    
+    LCD_RS = x;
+    LCD_RW = 0;
+    
+    char q = c;
+    c = c << 4;
+    
+    short temp = 0;
+    LATE = 0x0000;
+    temp = (c&&0x01);
+    temp |= (c&&0x02) << 1;
+    temp |= (c&&0x04) << 2;
+    temp |= (c&&0x08) << 3;
+    LATE |= temp;
+    
     LCD_E = 1;
     delayUs(1);
     LCD_E = 0;
+    delayUs(50);
+    
+    c = q;
+       
+    LATE = 0x0000;
+    temp = (c&&0x01);
+    temp |= (c&&0x02) << 1;
+    temp |= (c&&0x04) << 2;
+    temp |= (c&&0x08) << 3;
+    LATE |= temp;
+    
+    LCD_E = 1;
     delayUs(1);
+    LCD_E = 0;
+    delayUs(1000);
+    
+    LCD_RS = 0;
 }
 
 /*
  Use the command for changing the DD RAM address to put the cursor somewhere.
  */
-void moveCursorLCD(unsigned char x, unsigned char y){
+void moveCursorLCD(unsigned char x, unsigned char y) {
     unsigned char temp = 0x00;
-    if(y = 2) temp |= 0x40;
+    if(y = 2) temp |= 0xC0;
     else temp |= 0x00;
     temp |= x;
     LCD_RS = 0;
     LCD_RW = 0;
-    writeLCD_4bit(temp);
-    delayUs(50);
-    writeLCD_4bit(temp << 4);
-    delayUs(50);
+    writeCHAR(temp,0);
 }
 
 /*

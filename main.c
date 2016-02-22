@@ -22,7 +22,19 @@ int main(void)
 {
     SYSTEMConfigPerformance(10000000);
     
+    
+    
+    
     initTimer2();
+    
+    TRISGbits.TRISG15 = 0;
+    LATGbits.LATG15 = 0;
+    int i = 0;
+    for (i = 0; i < 1000; i++) {
+        delayUs(1000);
+    }
+    LATGbits.LATG15 = 1;
+    
     
     initLCD();
     
@@ -31,7 +43,8 @@ int main(void)
 //    testChar();
 //    testChar();
     testString();
-    
+    writeCHAR('Q',1);
+    writeCHAR('Q',1);
     
     
     
